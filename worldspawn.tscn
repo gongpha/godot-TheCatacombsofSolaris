@@ -30,8 +30,6 @@ glow_blend_mode = 0
 script = ExtResource( 1 )
 global_texture = ExtResource( 7 )
 
-[node name="timer" type="Timer" parent="."]
-
 [node name="character" parent="." instance=ExtResource( 2 )]
 
 [node name="static" type="StaticBody" parent="."]
