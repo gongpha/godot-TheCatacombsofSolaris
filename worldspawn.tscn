@@ -1,0 +1,182 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://worldspawn.gd" type="Script" id=1]
+[ext_resource path="res://scene/character.tscn" type="PackedScene" id=2]
+[ext_resource path="res://resource/surface.tres" type="Material" id=3]
+[ext_resource path="res://icon.png" type="Texture" id=4]
+[ext_resource path="res://mesh/cubein.tres" type="CubeMesh" id=5]
+[ext_resource path="res://mesh/cubewall.tres" type="CubeMesh" id=6]
+[ext_resource path="res://resource/noise.png" type="Texture" id=7]
+
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 32, 1, 32 )
+
+[sub_resource type="BoxShape" id=3]
+extents = Vector3( 1, 4, 32 )
+
+[sub_resource type="BoxShape" id=13]
+extents = Vector3( 8, 4, 8 )
+
+[sub_resource type="PanoramaSky" id=11]
+panorama = ExtResource( 7 )
+
+[sub_resource type="Environment" id=10]
+background_mode = 5
+background_sky = SubResource( 11 )
+glow_enabled = true
+glow_blend_mode = 0
+
+[node name="worldspawn" type="Spatial"]
+script = ExtResource( 1 )
+global_texture = ExtResource( 7 )
+
+[node name="timer" type="Timer" parent="."]
+
+[node name="character" parent="." instance=ExtResource( 2 )]
+
+[node name="static" type="StaticBody" parent="."]
+
+[node name="c" type="CollisionShape" parent="static"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0 )
+shape = SubResource( 2 )
+
+[node name="c2" type="CollisionShape" parent="static"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0 )
+shape = SubResource( 2 )
+
+[node name="c3" type="CollisionShape" parent="static"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 0, 0 )
+shape = SubResource( 3 )
+
+[node name="c4" type="CollisionShape" parent="static"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -33, 0, 0 )
+shape = SubResource( 3 )
+
+[node name="c5" type="CollisionShape" parent="static"]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -7.43094e-07, 0, 33 )
+shape = SubResource( 3 )
+
+[node name="c6" type="CollisionShape" parent="static"]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 7.43094e-07, 0, -33 )
+shape = SubResource( 3 )
+
+[node name="cc1" type="CollisionShape" parent="static"]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -14, 0, -14 )
+shape = SubResource( 13 )
+
+[node name="cc2" type="CollisionShape" parent="static"]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 14, 0, -14 )
+shape = SubResource( 13 )
+
+[node name="cc3" type="CollisionShape" parent="static"]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 14, 0, 14 )
+shape = SubResource( 13 )
+
+[node name="cc4" type="CollisionShape" parent="static"]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -14, 0, 14 )
+shape = SubResource( 13 )
+
+[node name="meshes" type="Spatial" parent="."]
+
+[node name="0" type="MeshInstance" parent="meshes"]
+material_override = ExtResource( 3 )
+mesh = ExtResource( 5 )
+skeleton = NodePath("../../static")
+
+[node name="1" type="MeshInstance" parent="meshes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, -14 )
+material_override = ExtResource( 3 )
+mesh = ExtResource( 6 )
+skeleton = NodePath("../../static")
+
+[node name="2" type="MeshInstance" parent="meshes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, -14 )
+material_override = ExtResource( 3 )
+mesh = ExtResource( 6 )
+skeleton = NodePath("../../static")
+
+[node name="3" type="MeshInstance" parent="meshes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, 14 )
+material_override = ExtResource( 3 )
+mesh = ExtResource( 6 )
+skeleton = NodePath("../../static")
+
+[node name="4" type="MeshInstance" parent="meshes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, 14 )
+material_override = ExtResource( 3 )
+mesh = ExtResource( 6 )
+skeleton = NodePath("../../static")
+
+[node name="env" type="WorldEnvironment" parent="."]
+environment = SubResource( 10 )
+
+[node name="teleport" type="Position3D" parent="."]
+transform = Transform( 0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -3, -4, -3 )
+
+[node name="overlay" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="icon" type="TextureRect" parent="overlay"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_right = 64.0
+margin_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource( 4 )
+
+[node name="icon2" type="TextureRect" parent="overlay"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -274.0
+margin_top = -145.0
+margin_right = -210.0
+margin_bottom = -81.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource( 4 )
+
+[node name="icon3" type="TextureRect" parent="overlay"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 292.0
+margin_top = -198.0
+margin_right = 356.0
+margin_bottom = -134.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource( 4 )
+
+[node name="icon4" type="TextureRect" parent="overlay"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 281.0
+margin_top = 74.0
+margin_right = 345.0
+margin_bottom = 138.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource( 4 )
+
+[node name="icon5" type="TextureRect" parent="overlay"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -165.0
+margin_top = 174.0
+margin_right = -101.0
+margin_bottom = 238.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource( 4 )

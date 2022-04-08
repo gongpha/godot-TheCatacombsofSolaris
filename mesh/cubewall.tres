@@ -1,0 +1,7 @@
+[gd_resource type="CubeMesh" format=2]
+
+[resource]
+size = Vector3( 16, 8, 16 )
+subdivide_width = 32
+subdivide_height = 16
+subdivide_depth = 32
